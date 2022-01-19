@@ -1,31 +1,44 @@
 pipeline {
+  environment {
+    registry = shawngmc/ubuntu"
+    registryCredential = 'DockerHubPushKey'
+    dockerImage = ''
+  }
+  agent {
+    node { 
+      label 'embercleave-temp'
+    } 
+  }
   stages {
-    stage('verify envs') {
-      parallel {
-        stage('verify envs') {
-          steps {
-            sh 'set | grep -e BUILD -e JENKINS'
-          }
-        }
-        stage('verify work path') {
-          steps {
-            sh '''pwd
-ls -l'''
-          }
+    stage('Checkout Git SCM') {
+      steps {
+        git(url: 'git@github.com:shawngmc/ubuntu-docker-base.git', credentialsId: 'JenkinsGHBuildKey')
+      }
+    }
+    stage('Build Image') {
+      steps{
+        script {
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
-    stage('build docker') {
-      steps {
-        sh '''cd amd64
-ls -l
-docker build --no-cache -t shawngmc/observium:jenkins-${BUILD_NUMBER} .'''
+    stage('Deploy Image') {
+      steps{
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
       }
     }
-    stage('verify docker') {
-      steps {
-        sh 'docker images'
+    stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $registry:$BUILD_NUMBER"
       }
     }
+
+  }
+  triggers {
+    cron('@weekly')
   }
 }
