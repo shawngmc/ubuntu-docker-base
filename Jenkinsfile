@@ -12,7 +12,7 @@ pipeline {
   stages {
     stage('Hello') {
       steps{
-        sh "echo Hello"
+        sh "docker -v"
       }
     }
 //     stage('Checkout Git SCM') {
