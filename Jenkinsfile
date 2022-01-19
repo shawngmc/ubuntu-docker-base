@@ -10,11 +10,16 @@ pipeline {
     } 
   }
   stages {
-    stage('test') {
-      steps{
-        sh "docker build . -t $registry"
+    stage('docker-in') {
+      dockerNode('jenkins/jnlp-agent-maven') {
+        sh 'docker ps'
       }
     }
+//     stage('test') {
+//       steps{
+//         sh "docker build . -t $registry"
+//       }
+//     }
 //     stage('Build Image') {
 //       steps{
 //         script {
