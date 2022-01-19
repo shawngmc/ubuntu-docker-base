@@ -10,32 +10,32 @@ pipeline {
     } 
   }
   stages {
-    stage('whoami') {
+    stage('test') {
       steps{
-        sh "whoami"
+        sh "docker build . -t $registry"
       }
     }
-    stage('Build Image') {
-      steps{
-        script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
-        }
-      }
-    }
-    stage('Publish Image') {
-      steps{
-        script {
-          docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
-          }
-        }
-      }
-    }
-    stage('Remove Unused docker image') {
-      steps{
-        sh "docker rmi $registry:$BUILD_NUMBER"
-      }
-    }
+//     stage('Build Image') {
+//       steps{
+//         script {
+//           dockerImage = docker.build registry + ":$BUILD_NUMBER"
+//         }
+//       }
+//     }
+//     stage('Publish Image') {
+//       steps{
+//         script {
+//           docker.withRegistry( '', registryCredential ) {
+//             dockerImage.push()
+//           }
+//         }
+//       }
+//     }
+//     stage('Remove Unused docker image') {
+//       steps{
+//         sh "docker rmi $registry:$BUILD_NUMBER"
+//       }
+//     }
   }
   triggers {
     cron('@weekly')
