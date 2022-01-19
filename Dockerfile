@@ -26,8 +26,7 @@ RUN chmod +x /tini
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends libvirt-clients tini && \
-    apt-get install -y --no-install-recommends cron curl locales wget && \
+    apt-get install -y --no-install-recommends libvirt-clients tini ca-certificates cron curl locales wget && \
     apt-get clean && \
     rm -f /etc/cron.d/* && \
     rm -f /etc/cron.hourly/* && \
