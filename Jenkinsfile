@@ -11,8 +11,10 @@ pipeline {
   }
   stages {
     stage('docker-in') {
-      dockerNode('jenkins/jnlp-agent-maven') {
-        sh 'docker ps'
+      steps {
+        dockerNode('jenkins/jnlp-agent-maven') {
+          sh 'docker ps'
+        }
       }
     }
 //     stage('test') {
