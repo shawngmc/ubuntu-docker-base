@@ -10,6 +10,11 @@ pipeline {
     } 
   }
   stages {
+    stage('whoami') {
+      steps{
+        sh "whoami"
+      }
+    }
     stage('Build Image') {
       steps{
         script {
