@@ -10,11 +10,11 @@ pipeline {
     } 
   }
   stages {
-    stage('Checkout Git SCM') {
-      steps {
-        git(url: 'git@github.com:shawngmc/ubuntu-docker-base.git', credentialsId: 'JenkinsGHBuildKey')
-      }
-    }
+//     stage('Checkout Git SCM') {
+//       steps {
+//         git(url: 'git@github.com:shawngmc/ubuntu-docker-base.git', credentialsId: 'JenkinsGHBuildKey')
+//       }
+//     }
     stage('Build Image') {
       steps{
         script {
