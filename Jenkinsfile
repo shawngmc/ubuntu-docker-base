@@ -10,6 +10,11 @@ pipeline {
     } 
   }
   stages {
+    stage('Hello') {
+      steps{
+        sh "echo Hello"
+      }
+    }
 //     stage('Checkout Git SCM') {
 //       steps {
 //         git(url: 'git@github.com:shawngmc/ubuntu-docker-base.git', credentialsId: 'JenkinsGHBuildKey')
