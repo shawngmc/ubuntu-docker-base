@@ -10,43 +10,27 @@ pipeline {
     } 
   }
   stages {
-    stage('Hello') {
+    stage('Build Image') {
       steps{
-        sh "docker -v"
+        script {
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        }
       }
     }
-//     stage('Checkout Git SCM') {
-//       steps {
-//         git(url: 'git@github.com:shawngmc/ubuntu-docker-base.git', credentialsId: 'JenkinsGHBuildKey')
-//       }
-//     }
-//     stage('Which Docker') {
-//       steps{
-//         sh "which docker"
-//       }
-//     }
-//     stage('Build Image') {
-//       steps{
-//         script {
-//           dockerImage = docker.build registry + ":$BUILD_NUMBER"
-//         }
-//       }
-//     }
-//     stage('Deploy Image') {
-//       steps{
-//         script {
-//           docker.withRegistry( '', registryCredential ) {
-//             dockerImage.push()
-//           }
-//         }
-//       }
-//     }
-//     stage('Remove Unused docker image') {
-//       steps{
-//         sh "docker rmi $registry:$BUILD_NUMBER"
-//       }
-//     }
-
+    stage('Publish Image') {
+      steps{
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+    stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $registry:$BUILD_NUMBER"
+      }
+    }
   }
   triggers {
     cron('@weekly')
