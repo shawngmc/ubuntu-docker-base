@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = shawngmc/ubuntu"
+    registry = "shawngmc/ubuntu"
     registryCredential = 'DockerHubPushKey'
     dockerImage = ''
   }
