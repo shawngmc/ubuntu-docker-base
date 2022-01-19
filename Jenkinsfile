@@ -15,6 +15,11 @@ pipeline {
 //         git(url: 'git@github.com:shawngmc/ubuntu-docker-base.git', credentialsId: 'JenkinsGHBuildKey')
 //       }
 //     }
+    stage('Which Docker') {
+      steps{
+        sh "which docker"
+      }
+    }
     stage('Build Image') {
       steps{
         script {
