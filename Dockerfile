@@ -1,7 +1,7 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
-LABEL org.label-schema.version = "20.04.20220119"
-LABEL version = "20.04.20220119"
+LABEL org.label-schema.version = "22.04.20221222"
+LABEL version = "22.04.20221222"
 
 LABEL org.label-schema.name = "hitoma-ubuntu"
 
