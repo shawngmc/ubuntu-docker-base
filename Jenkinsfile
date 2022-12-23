@@ -1,6 +1,7 @@
-cloud("docker") {
-  checkout scm
-  
+agent {
+  docker {
+    checkout scm
+
     docker.withRegistry('https://harbor.hitoma.com', 'hitoma-harbor-creds') {
 
         def customImage = docker.build("shawn/ubuntu:${env.BUILD_ID}")
@@ -8,4 +9,5 @@ cloud("docker") {
         /* Push the container to the custom Registry */
         customImage.push()
     }
+  }
 }
