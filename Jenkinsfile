@@ -1,4 +1,4 @@
-node("image-build") {
+node {
   checkout scm
   docker.withRegistry('https://harbor.hitoma.com', 'hitoma-harbor-creds') {
     def customImage = docker.build("shawn/ubuntu:${env.BUILD_ID}")
