@@ -1,4 +1,4 @@
-node {
+cloud("docker") {
   checkout scm
   
     docker.withRegistry('https://harbor.hitoma.com', 'hitoma-harbor-creds') {
