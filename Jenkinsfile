@@ -9,10 +9,12 @@ pipeline {
     }
     stage("Build") {
       steps {
-        docker.withRegistry('https://harbor.hitoma.com', 'hitoma-harbor-creds') {
-          def customImage = docker.build("shawn/ubuntu:${env.BUILD_ID}")
-          customImage.push()
-          customImage.push('latest')
+        script {
+          docker.withRegistry('https://harbor.hitoma.com', 'hitoma-harbor-creds') {
+            def customImage = docker.build("shawn/ubuntu:${env.BUILD_ID}")
+            customImage.push()
+            customImage.push('latest')
+          }
         }
       }
     }
